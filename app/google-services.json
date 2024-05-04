@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "181013117846",
+    "project_id": "book-reader-compose",
+    "storage_bucket": "book-reader-compose.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:181013117846:android:199ab78cbae37f26acbbb7",
+        "android_client_info": {
+          "package_name": "com.lokesh.readerapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjyrDLxQrZfbiEzKCNt6sCMw_6Mbjwb-M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
