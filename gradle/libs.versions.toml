@@ -3,9 +3,8 @@ agp = "8.3.1"
 coilCompose = "1.4.0"
 converterGsonVersion = "2.9.0"
 firebaseBom = "32.8.1"
-hiltNavigationComposeVersion = "1.0.0-alpha03"
 kotlin = "1.9.0"
-dagger = "2.44"
+dagger = "2.46"
 coreKtx = "1.12.0"
 googleServices = "4.4.1"
 junit = "4.13.2"
@@ -18,15 +17,17 @@ lifecycleRuntimeKtx = "2.7.0"
 activityCompose = "1.9.0"
 composeBom = "2023.08.00"
 lifecycleRuntimeKtxVersion = "2.3.1"
+materialIconsExtended = "1.6.7"
 okhttp = "5.0.0-alpha.2"
 retrofitVersion = "2.9.0"
+composeNavigation = "2.8.0-alpha08"
+serialization = "1.6.3"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
-androidx-hilt-lifecycle-viewmodel = { module = "androidx.hilt:hilt-lifecycle-viewmodel", version.ref = "hiltNavigationComposeVersion" }
-androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationComposeVersion" }
 androidx-lifecycle-runtime-ktx-v231 = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtxVersion" }
 androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleRuntimeKtxVersion" }
+androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 dagger = { module = "com.google.dagger:hilt-android", version.ref = "dagger" }
@@ -40,9 +41,9 @@ androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-co
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
-androidx-ui = { group = "com.google.firebase:firebase-auth", name = "ui" }
-firebase-auth = { group = "com.google.firebase:firebase-firestore", name = "firebase-auth" }
-firebase-fireStore = { group = "androidx.compose.ui", name = "firebase-fireStore" }
+firebase-auth = { group = "com.google.firebase", name = "firebase-auth" }
+firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore" }
+androidx-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
@@ -52,9 +53,12 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 retrofit2-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGsonVersion" }
 retrofit2-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofitVersion" }
+navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "composeNavigation" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization"}
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 googleServices = { id = "com.google.gms.google-services", version.ref = "googleServices" }
 dagger = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

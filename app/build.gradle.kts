@@ -4,6 +4,7 @@ plugins {
     id("com.google.gms.google-services")
     id ("kotlin-kapt")
     id("com.google.dagger.hilt.android")
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -67,12 +68,8 @@ dependencies {
     implementation(platform(libs.firebase.bom))
 
     // Firebase
-    //noinspection UseTomlInstead
-//    implementation("com.google.firebase:firebase-auth")
-//    //noinspection UseTomlInstead
-//    implementation("com.google.firebase:firebase-firestore")
     implementation(libs.firebase.auth)
-    implementation(libs.firebase.fireStore)
+    implementation(libs.firebase.firestore)
 
     // Coroutines
     implementation (libs.jetbrains.kotlinx.coroutines.core)
@@ -90,8 +87,6 @@ dependencies {
     //Dagger
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
-    implementation (libs.androidx.hilt.lifecycle.viewmodel)
-    implementation (libs.androidx.hilt.navigation.compose)
 
     // Retrofit
     implementation (libs.retrofit2.retrofit)
@@ -101,6 +96,10 @@ dependencies {
 
     // JSON Converter
     implementation (libs.retrofit2.converter.gson)
+
+    // Navigation
+    implementation (libs.navigation.compose)
+    implementation (libs.kotlinx.serialization.json )
 
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
