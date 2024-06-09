@@ -11,4 +11,12 @@
     <string name="add_new_book">Add New Book</string>
     <string name="app_logo">App Logo</string>
     <string name="logout_icon">Logout Icon</string>
+    <string name="profile_icon">Profile Icon</string>
+    <string name="latest_readings">Latest Readings...</string>
+    <string name="des_book_poster">Book Poster</string>
+    <string name="unknown">Unknown</string>
+    <string name="author_placeholder">Author: %1$s</string>
+    <string name="des_add_to_wishlist">Add to Wishlist</string>
+    <string name="des_ratings">Ratings</string>
+    <string name="reading_list">Reading List</string>
 </resources>

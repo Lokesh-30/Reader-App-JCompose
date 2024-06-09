@@ -101,6 +101,9 @@ dependencies {
     implementation (libs.navigation.compose)
     implementation (libs.kotlinx.serialization.json )
 
+    // Constraint Layout
+    implementation (libs.androidx.constraintlayout.compose)
+
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)

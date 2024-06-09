@@ -1,42 +1,48 @@
 package com.lokesh.readerapp.screens.home
 
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.google.firebase.auth.FirebaseAuth
 import com.lokesh.readerapp.R
+import com.lokesh.readerapp.components.HomeListCardItem
 import com.lokesh.readerapp.components.ReaderApp
+import com.lokesh.readerapp.components.ReaderTopBar
 import com.lokesh.readerapp.navigation.Screens
+import com.lokesh.readerapp.screens.Utils
 
 @Composable
-fun HomeScreen(navigation: NavHostController) {
+fun HomeScreen(navigation: NavHostController = NavHostController(LocalContext.current)) {
     ReaderApp {
         Scaffold(
             topBar = {
-                ReaderTopBar(navigation = navigation)
+                ReaderTopBar(title = "Loki Collection", showProfile = true, navigation = navigation)
             },
             floatingActionButton = {
                 FabContent {
@@ -49,61 +55,100 @@ fun HomeScreen(navigation: NavHostController) {
                     .padding(paddingValues)
                     .fillMaxSize()
             ) {
-
+                HomeContent(navigation)
             }
         }
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ReaderTopBar(
-    title: String = "Sample Text",
-    showProfile: Boolean = true,
-    navigation: NavHostController
-) {
-    TopAppBar(
-        title = {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(horizontal = 10.dp)
-            ) {
-                if (showProfile) {
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_splash_logo),
-                        contentDescription = stringResource(
-                            R.string.app_logo
-                        ),
-                        modifier = Modifier
-                            .size(25.dp)
-                            .scale(1.2f)
-                    )
-                    Spacer(modifier = Modifier.width(15.dp))
+fun HomeContent(navigation: NavHostController) {
+    Column(
+        modifier = Modifier.padding(horizontal = 15.dp),
+        verticalArrangement = Arrangement.Top
+    ) {
+        LatestReading(navigation)
+        Spacer(modifier = Modifier.height(15.dp))
+        ReadingList(navigation)
+    }
+}
+
+@Composable
+fun LatestReading(navigation: NavHostController) {
+    val name = FirebaseAuth.getInstance().currentUser?.email?.split("@")?.get(0) ?: "Unknown"
+    Row(
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        TitleSection(
+            modifier = Modifier.weight(1f),
+            label = stringResource(R.string.latest_readings)
+        )
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier
+                .weight(0.25f)
+                .clickable {
+                    navigation.navigate(Screens.StatsScreen)
                 }
-                Text(
-                    text = title,
-                    style = MaterialTheme.typography.headlineMedium
-                )
-            }
-        },
-        actions = {
-            IconButton(
-                onClick = {
-                    FirebaseAuth.getInstance().signOut().run {
-                        navigation.navigate(Screens.LoginScreen)
-                    }
-                }
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_exit),
-                    contentDescription = stringResource(
-                        R.string.logout_icon
-                    ),
-                    tint = MaterialTheme.colorScheme.onBackground
-                )
+        ) {
+            Icon(
+                imageVector = Icons.Filled.AccountCircle,
+                contentDescription = stringResource(R.string.profile_icon),
+                tint = MaterialTheme.colorScheme.inversePrimary,
+                modifier = Modifier.size(35.dp)
+            )
+            Text(
+                text = name,
+                style = MaterialTheme.typography.bodyMedium,
+                maxLines = 1,
+                softWrap = false,
+                overflow = TextOverflow.Clip
+            )
+        }
+    }
+    LazyRow(
+        contentPadding = PaddingValues(vertical = 10.dp, horizontal = 4.dp),
+        horizontalArrangement = Arrangement.spacedBy(10.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        items(items = Utils.dummyList, key = {it.id ?: ""}) {
+            HomeListCardItem(data = it) {
+                navigation.navigate(Screens.DetailScreen)
             }
         }
-    )
+    }
+}
+
+@Composable
+fun ReadingList(navigation: NavHostController) {
+    TitleSection(label = stringResource(R.string.reading_list))
+    LazyRow(
+        contentPadding = PaddingValues(vertical = 10.dp, horizontal = 4.dp),
+        horizontalArrangement = Arrangement.spacedBy(10.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        items(items = Utils.dummyList, key = {it.id ?: ""}) {
+            HomeListCardItem(data = it) {
+                navigation.navigate(Screens.DetailScreen)
+            }
+        }
+    }
+}
+
+@Composable
+fun TitleSection(
+    modifier: Modifier = Modifier,
+    label: String = "Sample text"
+) {
+    Surface(
+        modifier = modifier
+    ) {
+        Text(
+            text = label,
+            style = MaterialTheme.typography.titleLarge
+        )
+    }
 }
 
 @Composable
