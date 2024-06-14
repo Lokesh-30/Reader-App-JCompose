@@ -19,4 +19,14 @@
     <string name="des_add_to_wishlist">Add to Wishlist</string>
     <string name="des_ratings">Ratings</string>
     <string name="reading_list">Reading List</string>
+    <string name="des_back_button">Back button</string>
+    <string name="search_screen">Search Books</string>
+    <string name="search">Search</string>
+    <string name="des_search_bar">Search Bar</string>
+    <string name="enter_valid_text">Enter valid text</string>
+    <string name="authors">Authors : %1$s</string>
+    <string name="btn_save">Save</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="something_went_wrong">Something Went Wrong</string>
+    <string name="not_available">Not Available</string>
 </resources>

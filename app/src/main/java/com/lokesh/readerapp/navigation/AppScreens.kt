@@ -25,5 +25,5 @@ object Screens {
     object StatsScreen
 
     @Serializable
-    object DetailScreen
+    data class DetailScreen(val bookId: String)
 }

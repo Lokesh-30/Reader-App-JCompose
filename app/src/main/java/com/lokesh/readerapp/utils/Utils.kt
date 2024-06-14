@@ -1,4 +1,4 @@
-package com.lokesh.readerapp.screens
+package com.lokesh.readerapp.utils
 
 import com.lokesh.readerapp.model.Book
 

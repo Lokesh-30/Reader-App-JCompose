@@ -19,6 +19,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -111,8 +112,10 @@ fun ReaderLogo(modifier: Modifier = Modifier) {
 @Composable
 fun ReaderTopBar(
     title: String = "Sample Text",
-    showProfile: Boolean = true,
-    navigation: NavHostController
+    showNavigation: Boolean = false,
+    showProfile: Boolean = false,
+    navigation: NavHostController,
+    onBackClicked: ()-> Unit = {}
 ) {
     TopAppBar(
         title = {
@@ -138,21 +141,35 @@ fun ReaderTopBar(
                 )
             }
         },
-        actions = {
-            IconButton(
-                onClick = {
-                    FirebaseAuth.getInstance().signOut().run {
-                        navigation.navigate(Screens.LoginScreen)
-                    }
-                }
-            ) {
+        navigationIcon = {
+            if (showNavigation) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_exit),
-                    contentDescription = stringResource(
-                        R.string.logout_icon
-                    ),
-                    tint = MaterialTheme.colorScheme.onBackground
+                    imageVector = Icons.Default.KeyboardArrowLeft,
+                    contentDescription = stringResource(R.string.des_back_button),
+                    tint = MaterialTheme.colorScheme.onBackground,
+                    modifier = Modifier.clickable {
+                        onBackClicked()
+                    }.scale(1.5f).padding(start = 5.dp)
                 )
+            }
+        },
+        actions = {
+            if (showProfile) {
+                IconButton(
+                    onClick = {
+                        FirebaseAuth.getInstance().signOut().run {
+                            navigation.navigate(Screens.LoginScreen)
+                        }
+                    }
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_exit),
+                        contentDescription = stringResource(
+                            R.string.logout_icon
+                        ),
+                        tint = MaterialTheme.colorScheme.onBackground
+                    )
+                }
             }
         }
     )
@@ -239,8 +256,9 @@ fun HomeListCardItem(
                         contentDescription = stringResource(R.string.des_ratings),
                         modifier = Modifier.size(18.dp)
                     )
+                    val rating = if (data.ratings == null) "0.0" else data.ratings.toString()
                     Text(
-                        text = "0.0",
+                        text = rating,
                         style = MaterialTheme.typography.bodySmall.copy(fontSize = 12.sp)
                     )
                 }

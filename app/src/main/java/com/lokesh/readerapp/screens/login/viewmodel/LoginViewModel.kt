@@ -6,6 +6,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.lokesh.readerapp.model.UserProfile
+import com.lokesh.readerapp.utils.Constants
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -62,7 +63,7 @@ class LoginViewModel : ViewModel() {
             id = null
         ).toMap()
 
-        FirebaseFirestore.getInstance().collection("users").add(user)
+        FirebaseFirestore.getInstance().collection(Constants.Table.USER).add(user)
     }
 
     private fun createAccount(email: String, passcode: String) {

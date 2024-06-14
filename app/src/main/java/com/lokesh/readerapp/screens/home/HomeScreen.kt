@@ -22,6 +22,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -34,19 +35,27 @@ import com.lokesh.readerapp.R
 import com.lokesh.readerapp.components.HomeListCardItem
 import com.lokesh.readerapp.components.ReaderApp
 import com.lokesh.readerapp.components.ReaderTopBar
+import com.lokesh.readerapp.model.Book
 import com.lokesh.readerapp.navigation.Screens
-import com.lokesh.readerapp.screens.Utils
+import com.lokesh.readerapp.screens.home.viewmodel.HomeViewModel
+import com.lokesh.readerapp.utils.Utils
 
 @Composable
-fun HomeScreen(navigation: NavHostController = NavHostController(LocalContext.current)) {
+fun HomeScreen(
+    navigation: NavHostController = NavHostController(LocalContext.current),
+    viewModel: HomeViewModel
+) {
     ReaderApp {
         Scaffold(
             topBar = {
-                ReaderTopBar(title = "Loki Collection", showProfile = true, navigation = navigation)
+                ReaderTopBar(
+                    title = "Loki Collection",
+                    showProfile = true,
+                    navigation = navigation)
             },
             floatingActionButton = {
                 FabContent {
-                    // Not handled
+                    navigation.navigate(Screens.SearchScreen)
                 }
             }
         ) { paddingValues ->
@@ -55,21 +64,22 @@ fun HomeScreen(navigation: NavHostController = NavHostController(LocalContext.cu
                     .padding(paddingValues)
                     .fillMaxSize()
             ) {
-                HomeContent(navigation)
+                HomeContent(navigation, viewModel)
             }
         }
     }
 }
 
 @Composable
-fun HomeContent(navigation: NavHostController) {
+fun HomeContent(navigation: NavHostController, viewModel: HomeViewModel) {
+    val list by viewModel.data
     Column(
         modifier = Modifier.padding(horizontal = 15.dp),
         verticalArrangement = Arrangement.Top
     ) {
         LatestReading(navigation)
         Spacer(modifier = Modifier.height(15.dp))
-        ReadingList(navigation)
+        ReadingList(navigation, list.data)
     }
 }
 
@@ -112,7 +122,7 @@ fun LatestReading(navigation: NavHostController) {
         horizontalArrangement = Arrangement.spacedBy(10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        items(items = Utils.dummyList, key = {it.id ?: ""}) {
+        items(items = Utils.dummyList, key = { it.id ?: "" }) {
             HomeListCardItem(data = it) {
                 navigation.navigate(Screens.DetailScreen)
             }
@@ -121,14 +131,17 @@ fun LatestReading(navigation: NavHostController) {
 }
 
 @Composable
-fun ReadingList(navigation: NavHostController) {
+fun ReadingList(
+    navigation: NavHostController,
+    list: List<Book>?
+) {
     TitleSection(label = stringResource(R.string.reading_list))
     LazyRow(
         contentPadding = PaddingValues(vertical = 10.dp, horizontal = 4.dp),
         horizontalArrangement = Arrangement.spacedBy(10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        items(items = Utils.dummyList, key = {it.id ?: ""}) {
+        items(items = list ?: listOf(), key = { it.id ?: "" }) {
             HomeListCardItem(data = it) {
                 navigation.navigate(Screens.DetailScreen)
             }
