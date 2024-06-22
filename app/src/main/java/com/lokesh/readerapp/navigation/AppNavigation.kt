@@ -34,7 +34,8 @@ fun AppNavigation() {
         }
 
         composable<Screens.StatsScreen> {
-            StatsScreen(navController)
+            val viewModel: HomeViewModel = hiltViewModel()
+            StatsScreen(navController, viewModel)
         }
 
         composable<Screens.DetailScreen> {

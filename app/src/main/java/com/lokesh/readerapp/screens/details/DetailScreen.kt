@@ -61,7 +61,10 @@ fun DetailScreen(
     }
     Scaffold(
         topBar = {
-            ReaderTopBar(navigation = navigation) {
+            ReaderTopBar(
+                navigation = navigation,
+                showNavigation = true
+            ) {
                 navigation.navigateUp()
             }
         },

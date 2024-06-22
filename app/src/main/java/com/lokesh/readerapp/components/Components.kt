@@ -115,7 +115,7 @@ fun ReaderTopBar(
     showNavigation: Boolean = false,
     showProfile: Boolean = false,
     navigation: NavHostController,
-    onBackClicked: ()-> Unit = {}
+    onBackClicked: () -> Unit = {}
 ) {
     TopAppBar(
         title = {
@@ -147,9 +147,12 @@ fun ReaderTopBar(
                     imageVector = Icons.Default.KeyboardArrowLeft,
                     contentDescription = stringResource(R.string.des_back_button),
                     tint = MaterialTheme.colorScheme.onBackground,
-                    modifier = Modifier.clickable {
-                        onBackClicked()
-                    }.scale(1.5f).padding(start = 5.dp)
+                    modifier = Modifier
+                        .clickable {
+                            onBackClicked()
+                        }
+                        .scale(1.5f)
+                        .padding(start = 5.dp)
                 )
             }
         },
@@ -264,7 +267,10 @@ fun HomeListCardItem(
                 }
             }
             Text(
-                text = "Reading",
+                text = if (data.startReading != null) stringResource(R.string.reading)
+                else stringResource(
+                    R.string.not_yet
+                ),
                 modifier = Modifier
                     .padding(2.dp)
                     .background(
@@ -309,7 +315,11 @@ fun HomeListCardItem(
 }
 
 @Composable
-fun AccountForm(loading: MutableState<Boolean>, isLogin: Boolean = true, onAction: (String, String) -> Unit) {
+fun AccountForm(
+    loading: MutableState<Boolean>,
+    isLogin: Boolean = true,
+    onAction: (String, String) -> Unit
+) {
     val email = rememberSaveable {
         mutableStateOf("")
     }
@@ -398,7 +408,10 @@ fun AccountForm(loading: MutableState<Boolean>, isLogin: Boolean = true, onActio
             }
         }
     ) {
-        if (loading.value) CircularProgressIndicator(modifier = Modifier.size(25.dp), color = Color.White)
+        if (loading.value) CircularProgressIndicator(
+            modifier = Modifier.size(25.dp),
+            color = Color.White
+        )
         else Text(
             text = if (isLogin) stringResource(R.string.login) else stringResource(R.string.create_account),
             style = MaterialTheme.typography.titleLarge

@@ -77,15 +77,17 @@ fun HomeContent(navigation: NavHostController, viewModel: HomeViewModel) {
         modifier = Modifier.padding(horizontal = 15.dp),
         verticalArrangement = Arrangement.Top
     ) {
-        LatestReading(navigation)
+        LatestReading(navigation, list.data)
         Spacer(modifier = Modifier.height(15.dp))
         ReadingList(navigation, list.data)
     }
 }
 
 @Composable
-fun LatestReading(navigation: NavHostController) {
-    val name = FirebaseAuth.getInstance().currentUser?.email?.split("@")?.get(0) ?: "Unknown"
+fun LatestReading(navigation: NavHostController, list: List<Book>?) {
+    val bookList = list?.filter { book ->
+        book.startReading != null && book.finishedReading == null
+    }
     Row(
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -109,7 +111,7 @@ fun LatestReading(navigation: NavHostController) {
                 modifier = Modifier.size(35.dp)
             )
             Text(
-                text = name,
+                text = Utils.getName(),
                 style = MaterialTheme.typography.bodyMedium,
                 maxLines = 1,
                 softWrap = false,
@@ -117,16 +119,20 @@ fun LatestReading(navigation: NavHostController) {
             )
         }
     }
-    LazyRow(
-        contentPadding = PaddingValues(vertical = 10.dp, horizontal = 4.dp),
-        horizontalArrangement = Arrangement.spacedBy(10.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        items(items = Utils.dummyList, key = { it.id ?: "" }) {
-            HomeListCardItem(data = it) {
-                navigation.navigate(Screens.DetailScreen)
+    if (bookList != null) {
+        LazyRow(
+            contentPadding = PaddingValues(vertical = 10.dp, horizontal = 4.dp),
+            horizontalArrangement = Arrangement.spacedBy(10.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            items(items = bookList, key = { it.id ?: "" }) {
+                HomeListCardItem(data = it) { bookId ->
+                    navigation.navigate(Screens.UpdateScreen(bookId = bookId ?: ""))
+                }
             }
         }
+    } else {
+        Text(text = stringResource(R.string.no_books_found))
     }
 }
 
@@ -135,17 +141,24 @@ fun ReadingList(
     navigation: NavHostController,
     list: List<Book>?
 ) {
+    val bookList = list?.filter { book ->
+        book.startReading == null && book.finishedReading == null
+    }
     TitleSection(label = stringResource(R.string.reading_list))
-    LazyRow(
-        contentPadding = PaddingValues(vertical = 10.dp, horizontal = 4.dp),
-        horizontalArrangement = Arrangement.spacedBy(10.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        items(items = list ?: listOf(), key = { it.id ?: "" }) {
-            HomeListCardItem(data = it) { bookId ->
-                navigation.navigate(Screens.UpdateScreen(bookId = bookId))
+    if (bookList != null) {
+        LazyRow(
+            contentPadding = PaddingValues(vertical = 10.dp, horizontal = 4.dp),
+            horizontalArrangement = Arrangement.spacedBy(10.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            items(items = bookList, key = { it.id ?: "" }) {
+                HomeListCardItem(data = it) { bookId ->
+                    navigation.navigate(Screens.UpdateScreen(bookId = bookId))
+                }
             }
         }
+    } else {
+        Text(text = stringResource(R.string.no_books_found))
     }
 }
 

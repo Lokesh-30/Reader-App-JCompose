@@ -1,6 +1,7 @@
 package com.lokesh.readerapp.utils
 
 import com.google.firebase.Timestamp
+import com.google.firebase.auth.FirebaseAuth
 import com.lokesh.readerapp.model.Book
 import java.text.DateFormat
 
@@ -21,4 +22,6 @@ object Utils {
                 .format(it).toString()
         } ?: ""
     }
+
+    fun getName() = FirebaseAuth.getInstance().currentUser?.email?.split("@")?.get(0) ?: "Unknown"
 }
