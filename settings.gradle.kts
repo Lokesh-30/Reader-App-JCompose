@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Reader App"
 include(":app")
- 
+include(":ratingbar")

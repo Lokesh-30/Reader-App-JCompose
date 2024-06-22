@@ -187,7 +187,7 @@ fun HomeListCardItem(
     Card(
         modifier = Modifier.width(150.dp),
         onClick = {
-            onclick(data.id)
+            onclick(data.googleBookId)
         },
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(
@@ -220,9 +220,6 @@ fun HomeListCardItem(
                         width = Dimension.fillToConstraints
                     }
                     .height(150.dp)
-                    .clickable {
-                        isLiked = !isLiked
-                    }
             )
             Icon(
                 imageVector = if (isLiked) Icons.Filled.Favorite else Icons.Default.FavoriteBorder,
@@ -234,6 +231,9 @@ fun HomeListCardItem(
                     }
                     .padding(10.dp)
                     .size(20.dp)
+                    .clickable {
+                        isLiked = !isLiked
+                    }
             )
             Card(
                 shape = RoundedCornerShape(8.dp),

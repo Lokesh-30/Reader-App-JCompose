@@ -14,6 +14,7 @@ import com.lokesh.readerapp.screens.search.SearchScreen
 import com.lokesh.readerapp.screens.search.viewmodel.SearchViewModel
 import com.lokesh.readerapp.screens.splash.SplashScreen
 import com.lokesh.readerapp.screens.stats.StatsScreen
+import com.lokesh.readerapp.screens.update.UpdateScreen
 
 @Composable
 fun AppNavigation() {
@@ -40,6 +41,12 @@ fun AppNavigation() {
             val args = it.toRoute<Screens.DetailScreen>()
             val viewModel: SearchViewModel = hiltViewModel()
             DetailScreen(navController, args, viewModel)
+        }
+
+        composable<Screens.UpdateScreen> {
+            val viewModel = hiltViewModel<HomeViewModel>()
+            val args = it.toRoute<Screens.UpdateScreen>()
+            UpdateScreen(navController, args, viewModel)
         }
 
         composable<Screens.SearchScreen> {

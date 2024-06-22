@@ -1,9 +1,9 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-    id("com.google.gms.google-services")
+    id ("com.google.gms.google-services")
     id ("kotlin-kapt")
-    id("com.google.dagger.hilt.android")
+    id ("com.google.dagger.hilt.android")
     alias(libs.plugins.kotlin.serialization)
 }
 
@@ -59,6 +59,9 @@ kapt {
 
 dependencies {
 
+    // Import modules
+    implementation(project(":ratingbar"))
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -79,7 +82,7 @@ dependencies {
 
     // Coroutine Lifecycle Scopes
     implementation (libs.androidx.lifecycle.viewmodel.ktx)
-    implementation (libs.androidx.lifecycle.runtime.ktx.v231)
+//    implementation (libs.androidx.lifecycle.runtime.ktx.v231)
 
     // Coil
     implementation(libs.coil.compose)

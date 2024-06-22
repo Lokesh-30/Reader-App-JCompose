@@ -19,7 +19,7 @@ object Screens {
     object SearchScreen
 
     @Serializable
-    object UpdateScreen
+    data class UpdateScreen(val bookId: String?)
 
     @Serializable
     object StatsScreen

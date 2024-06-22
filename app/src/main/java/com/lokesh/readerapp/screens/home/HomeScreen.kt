@@ -142,8 +142,8 @@ fun ReadingList(
         verticalAlignment = Alignment.CenterVertically
     ) {
         items(items = list ?: listOf(), key = { it.id ?: "" }) {
-            HomeListCardItem(data = it) {
-                navigation.navigate(Screens.DetailScreen)
+            HomeListCardItem(data = it) { bookId ->
+                navigation.navigate(Screens.UpdateScreen(bookId = bookId))
             }
         }
     }

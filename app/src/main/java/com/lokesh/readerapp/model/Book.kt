@@ -1,9 +1,11 @@
 package com.lokesh.readerapp.model
 
+import androidx.compose.runtime.Immutable
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.Exclude
 import com.google.firebase.firestore.PropertyName
 
+@Immutable
 data class Book(
     @Exclude
     var id: String? = null,
@@ -38,7 +40,7 @@ data class Book(
 
     @get:PropertyName("finished_reading")
     @set:PropertyName("finished_reading")
-    var finishedReading: String? = null,
+    var finishedReading: Timestamp? = null,
 
     @get:PropertyName("user_id")
     @set:PropertyName("user_id")
