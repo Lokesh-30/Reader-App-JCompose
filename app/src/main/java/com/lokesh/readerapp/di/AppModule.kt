@@ -1,6 +1,5 @@
 package com.lokesh.readerapp.di
 
-import com.google.firebase.Firebase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.lokesh.readerapp.network.repo.BookRepository
 import com.lokesh.readerapp.network.repo.FirebaseRepository

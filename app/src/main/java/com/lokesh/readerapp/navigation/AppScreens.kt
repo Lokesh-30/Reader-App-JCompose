@@ -10,9 +10,6 @@ object Screens {
     object LoginScreen
 
     @Serializable
-    object CreateAccountScreen
-
-    @Serializable
     object HomeScreen
 
     @Serializable

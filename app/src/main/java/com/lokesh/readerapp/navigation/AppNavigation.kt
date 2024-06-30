@@ -10,6 +10,7 @@ import com.lokesh.readerapp.screens.details.DetailScreen
 import com.lokesh.readerapp.screens.home.HomeScreen
 import com.lokesh.readerapp.screens.home.viewmodel.HomeViewModel
 import com.lokesh.readerapp.screens.login.view.LoginScreen
+import com.lokesh.readerapp.screens.login.viewmodel.LoginViewModel
 import com.lokesh.readerapp.screens.search.SearchScreen
 import com.lokesh.readerapp.screens.search.viewmodel.SearchViewModel
 import com.lokesh.readerapp.screens.splash.SplashScreen
@@ -25,7 +26,8 @@ fun AppNavigation() {
         }
 
         composable<Screens.LoginScreen> {
-            LoginScreen(navController)
+            val viewModel = hiltViewModel<LoginViewModel>()
+            LoginScreen(navController, viewModel)
         }
 
         composable<Screens.HomeScreen> {

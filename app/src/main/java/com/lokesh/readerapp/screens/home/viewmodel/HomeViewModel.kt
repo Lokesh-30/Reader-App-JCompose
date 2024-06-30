@@ -1,6 +1,5 @@
 package com.lokesh.readerapp.screens.home.viewmodel
 
-import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
